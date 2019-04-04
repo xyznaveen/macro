@@ -1,0 +1,3 @@
+package np.com.naveenniraula.genericrecyclerview.callbacks
+
+interface BaseListener
