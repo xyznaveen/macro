@@ -36,6 +36,24 @@ class MovieVh(itemView: View) : Vh<MyModel, RecyclerItemClickListener>(itemView)
     }
 }
 ```
+
+Using the adapter `MovieAdapter`  
+```
+// instantiate
+val adapter = MovieAdapter()
+
+// set on click listener; must be set even if nothing is being performed
+// else exception will be thrown
+adapter.setRecyclerItemClickListener(object :
+    RecyclerItemClickListener {
+    override fun onItemClicked(position: Int) {
+        Log.i("BQ7CH72", "Clicked $position")
+    }
+})
+
+// add new ; List<MyModel> is provided by getData()
+adapter.addNewMultiple(getData())
+```
 </details>
 
 License
