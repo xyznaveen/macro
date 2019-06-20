@@ -65,6 +65,16 @@ abstract class RecyclerAdapter<T : RecyclerModel, V : Vh<T, RecyclerItemClickLis
         this.dataList.add(item)
         notifyItemInserted(this.dataList.size)
     }
+    
+     /**
+     * Get value of [T] from specified position.
+     *
+     * @param position the position of the model.
+     * @return
+     */
+    fun getItemAt(position: Int): T {
+        return this.dataList[position]
+    }
 
     /**
      * Clear all items in this list.
