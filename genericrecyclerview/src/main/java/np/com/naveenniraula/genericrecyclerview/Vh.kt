@@ -14,10 +14,11 @@ abstract class Vh<T : RecyclerModel, L : BaseListener>(itemView: View) :
      * @param listener the listener which will be called when item is clicked.
      */
     open fun onBind(model: T, listener: L) {
-        if (listener is RecyclerItemClickListener) {
+        (listener as? RecyclerItemClickListener)?.let {
             itemView.rootView.setOnClickListener {
                 listener.onItemClicked(adapterPosition)
             }
         }
     }
+
 }

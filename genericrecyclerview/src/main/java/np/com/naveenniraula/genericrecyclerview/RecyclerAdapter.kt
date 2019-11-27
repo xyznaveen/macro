@@ -1,5 +1,6 @@
 package np.com.naveenniraula.genericrecyclerview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,12 @@ abstract class RecyclerAdapter<T : RecyclerModel, V : Vh<T, RecyclerItemClickLis
     }
 
     override fun onBindViewHolder(holder: V, position: Int) {
-        holder.onBind(dataList[position], clickListener)
+        try {
+            holder.onBind(dataList[position], clickListener)
+        } catch (upace: UninitializedPropertyAccessException) {
+            upace.printStackTrace()
+            Log.d("RecyclerAdapter", upace.localizedMessage)
+        }
     }
 
     /**
@@ -65,8 +71,8 @@ abstract class RecyclerAdapter<T : RecyclerModel, V : Vh<T, RecyclerItemClickLis
         this.dataList.add(item)
         notifyItemInserted(this.dataList.size)
     }
-    
-     /**
+
+    /**
      * Get value of [T] from specified position.
      *
      * @param position the position of the model.

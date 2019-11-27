@@ -20,7 +20,7 @@ class MovieAdapter : RecyclerAdapter<MyModel, MovieAdapter.MovieVh>() {
         override fun onBind(model: MyModel, listener: RecyclerItemClickListener) {
             super.onBind(model, listener)
             // update views
-            val value = model.getValue()
+            val value = model
         }
     }
 
