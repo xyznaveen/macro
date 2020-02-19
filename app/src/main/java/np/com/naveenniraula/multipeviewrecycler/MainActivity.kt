@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import np.com.naveenniraula.genericrecyclerview.RecyclerAdapter
-import np.com.naveenniraula.genericrecyclerview.callbacks.RecyclerItemClickListener
+import np.com.naveenniraula.genericrecyclerview.callbacks.GrvRowClickListener
 import np.com.naveenniraula.multipeviewrecycler.ui.movie.MovieAdapter
 import np.com.naveenniraula.multipeviewrecycler.ui.movie.MyModel
 
@@ -18,9 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         // recycler view
         val adapter = MovieAdapter()
-        adapter.setRecyclerItemClickListener(object :
-            RecyclerItemClickListener {
-            override fun onItemClicked(position: Int) {
+        adapter.setGrvRowClickListener(object :
+            GrvRowClickListener {
+            override fun onRowClick(position: Int) {
                 Log.i("BQ7CH72", "Clicked $position")
             }
         })
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         val arr = ArrayList<MyModel>()
 
         for (i in 0..10) {
-            arr.add(MyModel())
+            arr.add(MyModel("we are here at : $i"))
         }
 
         return arr
