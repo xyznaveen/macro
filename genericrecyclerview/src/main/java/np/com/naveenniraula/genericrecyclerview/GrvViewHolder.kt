@@ -64,7 +64,7 @@ abstract class GrvViewHolder<T : GrvModel, L : GrvBasicListener>(itemView: View)
         return grvInternalEventListeners.get(key) != null
     }
 
-    fun getEvent(key: Int): GrvInternalEventListener {
+    fun getEvent(key: Int): GrvInternalEventListener? {
         return grvInternalEventListeners.get(key)
     }
 
