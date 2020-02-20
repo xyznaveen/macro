@@ -2,15 +2,27 @@
 
 Collection of all the libraries developed for personal use
 
-### multiplerecyclerview (RecyclerView boilerplate)
+### Generic Recycler View (RecyclerView boilerplate for handling the obvious.)
 
 <details>
 <summary>click to expand</summary>
 
-Create Adapter Class Extending `RecyclerAdapter<T, ViewHolder>` where `T` is `DataType`
+**STEP 1 :** Create a model for UI `MyModel` implementing `GrvModel` and override the `getDefaultValue()` as below:
+```kotlin
+data class MyModel(
+    val name: String = ""
+): GrvModel {
+    override fun getDefaultValue(): String {
+        return name
+    }
+}
 ```
+
+Create Adapter Class Extending `GrvAdapter<T, ViewHolder>` where `T` is `DataType` which extends 
+`GrvModel` as shown below:
+```kotlin
 // adapter class for the recycler view
-class MovieAdapter : RecyclerAdapter<MyModel, MovieAdapter.MovieVh>() {
+class MovieAdapter : GrvAdapter<MyModel, MovieAdapter.MovieVh>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVh {
         
@@ -23,31 +35,30 @@ class MovieAdapter : RecyclerAdapter<MyModel, MovieAdapter.MovieVh>() {
 
 ```
 
-Create `ViewHolder` Class Extending `Vh<T, RecyclerItemClickListener>` where `T` is `DataType`
-```
+Create `ViewHolder` Class Extending `GrvViewHolder<T, GrvRowClickListener>` where `T` is `DataType`
+```kotlin
 // view holder class which will be used in movie adapter
-class MovieVh(itemView: View) : Vh<MyModel, RecyclerItemClickListener>(itemView) {
-    val name = itemView.im_name
-    override fun onBind(model: MyModel, listener: RecyclerItemClickListener) {
+class MovieVh(itemView: View) : GrvViewHolder<MyModel, GrvRowClickListener>(itemView) {
+
+    override fun onBind(model: MyModel, listener: GrvRowClickListener) {
+        // if you donot want to fire the listener when the root view is clicked don't call super.
         super.onBind(model, listener)
         
-        // update views here ; taking data from model
-        // the listener ; will always be fired when the root view is clicked
+        // update views here ; data is available in model
     }
 }
 ```
 
 Using the adapter `MovieAdapter`  
-```
+```kotlin
 // instantiate
 val adapter = MovieAdapter()
 
 // set on click listener; must be set even if nothing is being performed
 // else exception will be thrown
-adapter.setRecyclerItemClickListener(object :
-    RecyclerItemClickListener {
-    override fun onItemClicked(position: Int) {
-        Log.i("BQ7CH72", "Clicked $position")
+adapter.setGrvRowClickListener(object : GrvRowClickListener {
+    override fun onGrvRowClick(position: Int, vararg obj: Any) {
+        Log.i("BQ7CH72", "clicked @ $position we have obj[0]")
     }
 })
 
